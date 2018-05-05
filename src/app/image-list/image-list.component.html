@@ -1,0 +1,36 @@
+<div>
+    <div>
+      <input class="search" [(ngModel)]="searchQuery"
+      name="search" placeholder="Search for images">
+    </div>
+    <br>
+    <button (click)="searchImages(searchQuery)"
+       class="searchButton" type="button">Find Images</button>
+  </div>
+  
+  <div *ngIf="searching">
+    <!--<md-progress-bar mode="indeterminate"></md-progress-bar>-->
+  </div>
+  
+  <div>
+    <h4 *ngIf="imagesFound" >Results</h4>
+    <masonry [useImagesLoaded]="true">
+      <masonry-brick *ngFor="let image of images" class=image-container>
+        <div>
+          <a href="{{ image.pageURL }}" target="_bank">
+            <div>
+              <div class="avatar"  [ngStyle]="{'background-image':'url('+ image.userImageURL +')', 'background-size':'40px 40px'}"></div>
+              <div>User: {{ image.user }}</div>
+            </div>
+            <img src="{{image.webformatURL}}">
+            <div>
+              <p>Tags: {{ image.tags }}</p>
+              <p>Comments: {{ image.comments }}</p>
+              <p>Likes: {{ image.likes }}</p>
+            </div>
+          </a>
+        </div>
+        <br><br>
+      </masonry-brick>
+    </masonry>
+  </div>
